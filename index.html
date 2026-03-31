@@ -1,0 +1,1563 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI სახელმძღვანელო — საქართველოს საზოგადოებრივი მაუწყებელი</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;700;900&family=Noto+Serif+Georgian:wght@700;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --green: #15803d;
+  --green-light: #dcfce7;
+  --green-dark: #14532d;
+  --red: #dc2626;
+  --red-light: #fee2e2;
+  --orange: #ea580c;
+  --orange-light: #fff7ed;
+  --blue: #1d4ed8;
+  --blue-light: #eff6ff;
+  --purple: #7c3aed;
+  --purple-light: #f5f3ff;
+  --yellow: #ca8a04;
+  --yellow-light: #fefce8;
+  --teal: #0f766e;
+  --teal-light: #f0fdfa;
+  --pink: #be185d;
+  --pink-light: #fdf2f8;
+  --bg: #fffbf5;
+  --white: #ffffff;
+  --text: #1c1917;
+  --text-muted: #78716c;
+  --border: #e7e5e4;
+  --radius: 18px;
+  --radius-sm: 10px;
+  --shadow: 0 4px 24px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,0.12);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Noto Sans Georgian', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 17px;
+  line-height: 1.75;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: sticky; top: 0; z-index: 200;
+  background: rgba(255,251,245,0.95);
+  backdrop-filter: blur(16px);
+  border-bottom: 2px solid var(--border);
+  padding: 0;
+}
+.nav-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; align-items: center;
+  padding: 0.9rem 1.5rem; gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.nav-brand {
+  display: flex; align-items: center; gap: 10px;
+  font-family: 'Noto Serif Georgian', serif;
+  font-weight: 700; font-size: 1rem;
+  color: var(--text); text-decoration: none;
+}
+.nav-logo-badge {
+  background: linear-gradient(135deg, #1d4ed8, #7c3aed);
+  color: white; padding: 5px 12px;
+  border-radius: 8px; font-size: 12px; font-weight: 700;
+  letter-spacing: 0.03em;
+}
+.nav-links {
+  display: flex; gap: 0.25rem; flex-wrap: wrap; flex: 1;
+}
+.nav-links a {
+  font-size: 14px; color: var(--text-muted);
+  text-decoration: none; padding: 6px 14px;
+  border-radius: 999px; transition: all 0.2s;
+  white-space: nowrap;
+}
+.nav-links a:hover { background: var(--border); color: var(--text); }
+
+/* ─── HERO ─── */
+.hero {
+  background: linear-gradient(160deg, #1e3a8a 0%, #1d4ed8 40%, #7c3aed 100%);
+  color: white; padding: 5rem 1.5rem 4rem;
+  text-align: center; position: relative; overflow: hidden;
+}
+.hero-dots {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+  background-size: 30px 30px; pointer-events: none;
+}
+.hero-content { position: relative; z-index: 2; max-width: 750px; margin: 0 auto; }
+.org-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.4);
+  color: white; padding: 7px 20px; border-radius: 999px;
+  font-size: 13px; font-weight: 500; margin-bottom: 1.5rem;
+  letter-spacing: 0.04em;
+}
+.hero h1 {
+  font-family: 'Noto Serif Georgian', serif;
+  font-size: 3rem; font-weight: 900;
+  line-height: 1.2; margin-bottom: 1.2rem;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+}
+.hero-sub {
+  font-size: 1.1rem; opacity: 0.88;
+  max-width: 600px; margin: 0 auto 2.5rem;
+  line-height: 1.8;
+}
+.hero-bots {
+  display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;
+}
+.hero-bot {
+  background: rgba(255,255,255,0.15);
+  border: 1.5px solid rgba(255,255,255,0.35);
+  color: white; padding: 10px 22px; border-radius: 999px;
+  font-size: 15px; font-weight: 600;
+  backdrop-filter: blur(8px);
+  transition: transform 0.2s, background 0.2s;
+}
+.hero-bot:hover { transform: translateY(-3px); background: rgba(255,255,255,0.25); }
+.hero-scroll-hint {
+  position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
+  color: rgba(255,255,255,0.6); font-size: 13px;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  animation: bounce 2s infinite;
+}
+@keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+
+/* ─── PAGE LAYOUT ─── */
+.page { display: none; }
+.page.active { display: block; }
+
+/* ─── SECTION ─── */
+.section {
+  max-width: 960px; margin: 0 auto;
+  padding: 3.5rem 1.5rem 1.5rem;
+}
+.section-header {
+  text-align: center; margin-bottom: 2.5rem;
+}
+.section-eyebrow {
+  display: inline-block;
+  font-size: 12px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 5px 16px; border-radius: 999px; margin-bottom: 0.75rem;
+}
+.section-title {
+  font-family: 'Noto Serif Georgian', serif;
+  font-size: 2rem; font-weight: 900;
+  line-height: 1.25; color: var(--text);
+}
+.section-desc {
+  font-size: 1rem; color: var(--text-muted);
+  max-width: 600px; margin: 0.75rem auto 0; line-height: 1.8;
+}
+
+/* ─── CARDS ─── */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px; margin-bottom: 2rem;
+}
+.card {
+  background: var(--white); border: 2px solid var(--border);
+  border-radius: var(--radius); padding: 1.4rem 1.5rem;
+  transition: transform 0.25s, box-shadow 0.25s;
+  cursor: default;
+}
+.card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+.card.do   { border-top: 5px solid var(--green); }
+.card.dont { border-top: 5px solid var(--red); }
+.card-icon { font-size: 2rem; margin-bottom: 12px; display: block; }
+.card-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+.card-desc  { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+
+/* ─── BADGE ─── */
+.badge {
+  display: inline-block; font-size: 12px; font-weight: 700;
+  padding: 4px 12px; border-radius: 999px; letter-spacing: 0.04em;
+}
+.badge-green  { background: var(--green-light); color: var(--green-dark); }
+.badge-red    { background: var(--red-light); color: #7f1d1d; }
+.badge-blue   { background: var(--blue-light); color: #1e3a8a; }
+.badge-orange { background: var(--orange-light); color: #7c2d12; }
+.badge-purple { background: var(--purple-light); color: #4c1d95; }
+.badge-yellow { background: var(--yellow-light); color: #713f12; }
+
+/* ─── DIVIDER ─── */
+.divider {
+  max-width: 960px; margin: 0 auto;
+  height: 2px; background: var(--border); border-radius: 99px;
+}
+
+/* ─── TIPS BLOCK ─── */
+.tips-block {
+  background: var(--white); border: 2px solid var(--border);
+  border-radius: var(--radius); padding: 1.5rem 1.75rem; margin-bottom: 1.25rem;
+  transition: box-shadow 0.2s;
+}
+.tips-block:hover { box-shadow: var(--shadow); }
+.tips-block h3 {
+  font-size: 16px; font-weight: 700;
+  margin-bottom: 1rem; display: flex; align-items: center; gap: 10px;
+}
+.tip-item {
+  display: flex; gap: 12px;
+  margin-bottom: 10px; align-items: flex-start;
+  font-size: 15px; line-height: 1.7;
+}
+.tip-dot {
+  width: 9px; height: 9px; border-radius: 50%;
+  flex-shrink: 0; margin-top: 9px;
+}
+.dot-green  { background: var(--green); }
+.dot-red    { background: var(--red); }
+.dot-blue   { background: var(--blue); }
+.dot-orange { background: var(--orange); }
+.dot-purple { background: var(--purple); }
+
+/* ─── COMPARISON GRID ─── */
+.comp-grid {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 16px; margin-bottom: 2rem;
+}
+@media(max-width:600px){ .comp-grid{ grid-template-columns:1fr; } }
+.comp-card {
+  background: var(--white); border: 2px solid var(--border);
+  border-radius: var(--radius); padding: 1.4rem 1.5rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.comp-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+.comp-card.featured { border-color: var(--orange); border-width: 3px; }
+.comp-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 12px; }
+.comp-card ul { list-style: none; }
+.comp-card li {
+  font-size: 14px; color: var(--text-muted); padding: 3px 0;
+  display: flex; align-items: flex-start; gap: 8px; line-height: 1.6;
+}
+.comp-card li::before { content: "›"; font-weight: 900; color: var(--text); flex-shrink: 0; }
+
+/* ─── PROMPT TABS ─── */
+.tab-row {
+  display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 1.5rem;
+}
+.tab-btn {
+  padding: 10px 22px; border-radius: 999px; font-size: 15px;
+  font-weight: 600; border: 2px solid var(--border);
+  background: var(--white); cursor: pointer; transition: all 0.2s;
+  font-family: 'Noto Sans Georgian', sans-serif;
+}
+.tab-btn:hover { border-color: #9ca3af; }
+.tab-btn.t-gpt    { background:#f0fdf4; border-color:#16a34a; color:#14532d; }
+.tab-btn.t-claude { background:#fff7ed; border-color:#ea580c; color:#7c2d12; }
+.tab-btn.t-gemini { background:#eff6ff; border-color:#1d4ed8; color:#1e3a8a; }
+.tab-content { display:none; }
+.tab-content.active { display:block; }
+
+/* ─── PROMPT EXAMPLES ─── */
+.formula-box {
+  background: #1c1917; color: #e7e5e4;
+  border-radius: var(--radius); padding: 1.5rem 1.75rem;
+  font-size: 15px; line-height: 2; margin-bottom: 1.5rem;
+}
+.formula-box .ft { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #78716c; margin-bottom: 0.75rem; display: block; }
+.hi-g { color: #4ade80; } .hi-y { color: #fbbf24; } .hi-b { color: #60a5fa; } .hi-p { color: #c084fc; }
+
+.prompt-card {
+  background: var(--white); border: 2px solid var(--border);
+  border-radius: var(--radius); overflow: hidden; margin-bottom: 1rem;
+}
+.prompt-card-head {
+  padding: 12px 18px; font-size: 13px; font-weight: 700;
+  letter-spacing: 0.05em; border-bottom: 2px solid var(--border);
+  display: flex; align-items: center; gap: 8px;
+}
+.ph-gpt { background:#f0fdf4; color:#14532d; }
+.ph-claude { background:#fff7ed; color:#7c2d12; }
+.ph-gemini { background:#eff6ff; color:#1e3a8a; }
+.prompt-bad {
+  padding: 14px 18px; background: #fef2f2;
+  border-bottom: 1px solid #fecaca;
+  color: #7f1d1d; font-size: 14px; line-height: 1.7;
+}
+.prompt-good {
+  padding: 14px 18px; background: #f0fdf4;
+  color: #14532d; font-size: 14px; line-height: 1.7;
+}
+.plabel { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; display: block; margin-bottom: 5px; opacity: 0.65; }
+
+.rule-row {
+  display: flex; gap: 14px; align-items: flex-start;
+  background: var(--white); border: 2px solid var(--border);
+  border-radius: var(--radius-sm); padding: 1rem 1.25rem;
+  margin-bottom: 0.75rem; font-size: 15px; line-height: 1.7;
+  transition: box-shadow 0.2s;
+}
+.rule-row:hover { box-shadow: var(--shadow); }
+.rnum {
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700; flex-shrink: 0; margin-top: 2px; color: white;
+}
+.rn-g { background: var(--green); }
+.rn-o { background: var(--orange); }
+.rn-b { background: var(--blue); }
+
+/* ─── STATS ─── */
+.stats-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
+  gap: 16px; margin-bottom: 2rem;
+}
+.stat-card {
+  background: var(--white); border: 2px solid var(--border);
+  border-radius: var(--radius); padding: 1.5rem;
+  text-align: center; transition: transform 0.2s, box-shadow 0.2s;
+}
+.stat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+.stat-num {
+  font-family: 'Noto Serif Georgian', serif;
+  font-size: 2.5rem; font-weight: 900;
+  line-height: 1.1; margin-bottom: 6px;
+}
+.stat-label { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+/* ─── GEN AI TOOLS ─── */
+.tools-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr));
+  gap: 18px; margin-bottom: 2rem;
+}
+.tool-card {
+  background: var(--white); border: 2px solid var(--border);
+  border-radius: var(--radius); padding: 1.5rem;
+  transition: transform 0.25s, box-shadow 0.25s;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.tool-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+.tool-header { display: flex; align-items: center; gap: 12px; }
+.tool-icon {
+  width: 50px; height: 50px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.6rem; flex-shrink: 0;
+}
+.tool-name { font-size: 16px; font-weight: 700; }
+.tool-company { font-size: 12px; color: var(--text-muted); }
+.tool-desc { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+.tool-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tool-tag {
+  font-size: 12px; font-weight: 600; padding: 3px 10px;
+  border-radius: 999px;
+}
+.tool-link {
+  display: inline-block; margin-top: auto;
+  font-size: 13px; font-weight: 600;
+  color: var(--blue); text-decoration: none;
+  padding: 7px 16px; border: 1.5px solid currentColor;
+  border-radius: 999px; transition: all 0.2s; width: fit-content;
+}
+.tool-link:hover { background: var(--blue); color: white; }
+
+/* ─── TREND CHART ─── */
+.trend-bar-wrap { margin-bottom: 1rem; }
+.trend-label-row {
+  display: flex; justify-content: space-between;
+  font-size: 14px; margin-bottom: 6px;
+}
+.trend-bar-bg {
+  height: 28px; background: var(--border);
+  border-radius: 999px; overflow: hidden;
+}
+.trend-bar-fill {
+  height: 100%; border-radius: 999px;
+  display: flex; align-items: center; padding-left: 14px;
+  font-size: 12px; font-weight: 700; color: white;
+  transition: width 1.2s ease;
+}
+
+/* ─── GAME ─── */
+#game-section {
+  background: linear-gradient(135deg, #f0fdf4 0%, #eff6ff 100%);
+  border-radius: var(--radius); border: 3px solid var(--border);
+  padding: 2.5rem; margin-bottom: 2rem;
+}
+.game-header { text-align: center; margin-bottom: 2rem; }
+.game-title {
+  font-family: 'Noto Serif Georgian', serif;
+  font-size: 1.75rem; font-weight: 900; margin-bottom: 0.5rem;
+}
+.game-desc { font-size: 15px; color: var(--text-muted); }
+
+.game-progress {
+  display: flex; gap: 8px; justify-content: center;
+  margin-bottom: 2rem; flex-wrap: wrap;
+}
+.gp-dot {
+  width: 14px; height: 14px; border-radius: 50%;
+  background: var(--border); transition: background 0.3s;
+}
+.gp-dot.done { background: var(--green); }
+.gp-dot.current { background: var(--blue); box-shadow: 0 0 0 3px rgba(29,78,216,0.2); }
+
+.challenge-box {
+  background: var(--white); border: 2px solid var(--border);
+  border-radius: var(--radius); padding: 1.75rem; margin-bottom: 1.25rem;
+}
+.challenge-scenario {
+  font-size: 13px; font-weight: 700; color: var(--text-muted);
+  letter-spacing: 0.06em; text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.challenge-task { font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; line-height: 1.6; }
+.challenge-hint { font-size: 14px; color: var(--blue); background: var(--blue-light); padding: 10px 16px; border-radius: 10px; margin-bottom: 1.25rem; line-height: 1.6; }
+
+.game-input {
+  width: 100%; padding: 14px 18px;
+  border: 2.5px solid var(--border); border-radius: 12px;
+  font-size: 15px; font-family: 'Noto Sans Georgian', sans-serif;
+  resize: vertical; min-height: 100px;
+  transition: border-color 0.2s;
+  line-height: 1.6;
+}
+.game-input:focus { outline: none; border-color: var(--blue); }
+
+.game-btn {
+  margin-top: 12px; padding: 13px 32px;
+  background: var(--blue); color: white;
+  border: none; border-radius: 999px;
+  font-size: 15px; font-weight: 700;
+  font-family: 'Noto Sans Georgian', sans-serif;
+  cursor: pointer; transition: all 0.2s;
+}
+.game-btn:hover { background: #1e40af; transform: translateY(-2px); box-shadow: 0 4px 14px rgba(29,78,216,0.35); }
+.game-btn:disabled { background: var(--border); color: var(--text-muted); cursor: not-allowed; transform: none; box-shadow: none; }
+
+.feedback-box {
+  border-radius: var(--radius); padding: 1.5rem;
+  margin-top: 1.25rem; display: none;
+}
+.feedback-box.show { display: block; }
+.feedback-box.good { background: #f0fdf4; border: 2px solid #86efac; }
+.feedback-box.ok   { background: #fffbeb; border: 2px solid #fcd34d; }
+.feedback-box.bad  { background: #fef2f2; border: 2px solid #fca5a5; }
+.fb-score { font-size: 2rem; font-weight: 900; margin-bottom: 8px; }
+.fb-verdict { font-size: 16px; font-weight: 700; margin-bottom: 10px; }
+.fb-detail { font-size: 14px; line-height: 1.75; color: var(--text-muted); }
+.fb-ideal { margin-top: 12px; background: white; border-radius: 10px; padding: 12px 16px; font-size: 14px; line-height: 1.7; }
+.fb-ideal strong { display: block; font-size: 12px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--green); margin-bottom: 5px; }
+
+.score-display {
+  display: flex; justify-content: center; gap: 1.5rem;
+  margin-bottom: 1.5rem; flex-wrap: wrap;
+}
+.score-item {
+  background: white; border: 2px solid var(--border);
+  border-radius: 14px; padding: 0.75rem 1.5rem; text-align: center;
+}
+.score-num { font-size: 1.75rem; font-weight: 900; }
+.score-lbl { font-size: 12px; color: var(--text-muted); }
+
+.game-next-btn {
+  margin-top: 12px; padding: 11px 28px;
+  background: var(--green); color: white;
+  border: none; border-radius: 999px;
+  font-size: 15px; font-weight: 700;
+  font-family: 'Noto Sans Georgian', sans-serif;
+  cursor: pointer; transition: all 0.2s; display: none;
+}
+.game-next-btn.show { display: inline-block; }
+.game-next-btn:hover { background: #15803d; transform: translateY(-2px); }
+
+.game-result {
+  text-align: center; display: none; padding: 2rem;
+  background: white; border-radius: var(--radius); border: 2px solid var(--border);
+}
+.game-result.show { display: block; }
+.result-emoji { font-size: 4rem; margin-bottom: 1rem; }
+.result-title {
+  font-family: 'Noto Serif Georgian', serif;
+  font-size: 1.75rem; font-weight: 900; margin-bottom: 0.75rem;
+}
+.result-desc { font-size: 15px; color: var(--text-muted); line-height: 1.8; }
+.restart-btn {
+  margin-top: 1.5rem; padding: 13px 32px;
+  background: var(--blue); color: white;
+  border: none; border-radius: 999px;
+  font-size: 15px; font-weight: 700;
+  font-family: 'Noto Sans Georgian', sans-serif;
+  cursor: pointer; transition: all 0.2s;
+}
+.restart-btn:hover { background: #1e40af; }
+
+/* ─── BOTTOM NAV (page switcher) ─── */
+.page-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
+  background: rgba(255,251,245,0.97);
+  backdrop-filter: blur(16px);
+  border-top: 2px solid var(--border);
+  display: flex; justify-content: center; gap: 4px;
+  padding: 0.6rem 1rem;
+}
+.pnav-btn {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  padding: 8px 16px; border-radius: 12px;
+  border: none; background: transparent;
+  cursor: pointer; font-family: 'Noto Sans Georgian', sans-serif;
+  font-size: 12px; color: var(--text-muted);
+  transition: all 0.2s; min-width: 70px;
+}
+.pnav-btn:hover { background: var(--border); color: var(--text); }
+.pnav-btn.active { background: var(--blue); color: white; }
+.pnav-icon { font-size: 1.3rem; }
+
+/* ─── FOOTER ─── */
+.site-footer {
+  text-align: center; padding: 3rem 1rem 7rem;
+  border-top: 2px solid var(--border);
+  font-size: 14px; color: var(--text-muted);
+}
+.site-footer .org { font-weight: 700; color: var(--text); font-size: 15px; margin-bottom: 4px; }
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:700px) {
+  .hero h1 { font-size: 2rem; }
+  .section-title { font-size: 1.5rem; }
+  .cards-grid { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: repeat(2,1fr); }
+  .tools-grid { grid-template-columns: 1fr; }
+  .pnav-btn { min-width: 55px; padding: 8px 10px; font-size: 11px; }
+}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-in { animation: fadeUp 0.5s ease both; }
+
+/* ─── ACCORDION ─── */
+.accordion-item {
+  background: var(--white); border: 2px solid var(--border);
+  border-radius: var(--radius-sm); margin-bottom: 10px; overflow: hidden;
+}
+.accordion-head {
+  width: 100%; text-align: left; padding: 1rem 1.25rem;
+  background: none; border: none; cursor: pointer;
+  font-family: 'Noto Sans Georgian', sans-serif;
+  font-size: 15px; font-weight: 700;
+  display: flex; justify-content: space-between; align-items: center;
+  transition: background 0.2s; color: var(--text);
+}
+.accordion-head:hover { background: var(--bg); }
+.accordion-arrow { font-size: 18px; transition: transform 0.3s; }
+.accordion-body {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.3s;
+  padding: 0 1.25rem;
+  font-size: 14px; color: var(--text-muted); line-height: 1.8;
+}
+.accordion-body.open { max-height: 400px; padding: 0 1.25rem 1.25rem; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a class="nav-brand" href="#">
+      <span class="nav-logo-badge">GPB</span>
+      AI სახელმძღვანელო
+    </a>
+    <div class="nav-links">
+      <a href="#" onclick="showPage('home')">🏠 მთავარი</a>
+      <a href="#" onclick="showPage('guide')">📋 სახელმძღვანელო</a>
+      <a href="#" onclick="showPage('prompting')">🎨 Prompting</a>
+      <a href="#" onclick="showPage('stats')">📊 სტატისტიკა</a>
+      <a href="#" onclick="showPage('genai')">🎭 Generative AI</a>
+      <a href="#" onclick="showPage('game')">🎮 თამაში</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════════════ PAGE: HOME ══════════════ -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <div class="hero-dots"></div>
+    <div class="hero-content fade-in">
+      <div class="org-badge">🏛️ საქართველოს საზოგადოებრივი მაუწყებელი</div>
+      <h1>ხელოვნური<br>ინტელექტის<br>სახელმძღვანელო</h1>
+      <p class="hero-sub">ყველაფერი, რაც უნდა იცოდეთ AI ჩატბოტების შესახებ — მარტივად, ნათლად, პრაქტიკულად.</p>
+      <div class="hero-bots">
+        <span class="hero-bot">🟢 ChatGPT</span>
+        <span class="hero-bot">🟠 Claude</span>
+        <span class="hero-bot">🔵 Gemini</span>
+      </div>
+    </div>
+    <div class="hero-scroll-hint">
+      <span>გადაახვიეთ ქვემოთ</span>
+      <span>▼</span>
+    </div>
+  </div>
+
+  <div class="section fade-in">
+    <div class="section-header">
+      <div class="section-eyebrow badge badge-blue">რა შეიცავს ეს გზამკვლევი?</div>
+      <h2 class="section-title">6 განყოფილება, ყველაფერი ერთ ადგილას</h2>
+      <p class="section-desc">დააჭირეთ ნებისმიერ განყოფილებაზე, რომ გადახვიდეთ</p>
+    </div>
+    <div class="cards-grid">
+      <div class="card" onclick="showPage('guide')" style="cursor:pointer; border-top:5px solid #16a34a">
+        <span class="card-icon">📋</span>
+        <div class="card-title">AI-ის სახელმძღვანელო</div>
+        <div class="card-desc">რა უნდა გააკეთოთ და რა — არ. ChatGPT, Claude და Gemini-ს შედარება.</div>
+      </div>
+      <div class="card" onclick="showPage('prompting')" style="cursor:pointer; border-top:5px solid #7c3aed">
+        <span class="card-icon">🎨</span>
+        <div class="card-title">Prompting-ის ხელოვნება</div>
+        <div class="card-desc">ისწავლეთ, როგორ სწორად ჰკითხოთ AI-ს, რომ საუკეთესო პასუხი მიიღოთ.</div>
+      </div>
+      <div class="card" onclick="showPage('stats')" style="cursor:pointer; border-top:5px solid #1d4ed8">
+        <span class="card-icon">📊</span>
+        <div class="card-title">სტატისტიკა და ტენდენციები</div>
+        <div class="card-desc">AI-ის ზრდა მსოფლიოში. ციფრები, ფაქტები, განვითარება.</div>
+      </div>
+      <div class="card" onclick="showPage('genai')" style="cursor:pointer; border-top:5px solid #be185d">
+        <span class="card-icon">🎭</span>
+        <div class="card-title">Generative AI ინსტრუმენტები</div>
+        <div class="card-desc">სურათები, ვიდეო, ხმა, კოდი — საუკეთესო AI ინსტრუმენტები.</div>
+      </div>
+      <div class="card" onclick="showPage('game')" style="cursor:pointer; border-top:5px solid #ea580c">
+        <span class="card-icon">🎮</span>
+        <div class="card-title">სასწავლო თამაში</div>
+        <div class="card-desc">პრაქტიკულად ივარჯიშეთ! დაწერეთ prompt-ები და მიიღეთ შეფასება.</div>
+      </div>
+      <div class="card" style="border-top:5px solid #0f766e; cursor:default">
+        <span class="card-icon">💡</span>
+        <div class="card-title">სამსახურში გამოყენება</div>
+        <div class="card-desc">ელ-ფოსტები, ანგარიშები, კვლევა — AI-ის პრაქტიკული გამოყენება ყოველდღიურ სამუშაოში.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section fade-in">
+    <div class="section-header">
+      <div class="section-eyebrow badge badge-orange">სწრაფი ცნობარი</div>
+      <h2 class="section-title">AI — ერთი წუთის ახსნა</h2>
+    </div>
+    <div class="tips-block">
+      <h3>🤖 რა არის AI ჩატბოტი?</h3>
+      <div class="tip-item"><div class="tip-dot dot-blue"></div><span>AI ჩატბოტი არის კომპიუტერული პროგრამა, რომელსაც შეუძლია ადამიანის ენაზე საუბარი. მაგალითად: ChatGPT, Claude, Gemini.</span></div>
+      <div class="tip-item"><div class="tip-dot dot-blue"></div><span>მათ ინტერნეტიდან და მილიონობით წიგნიდან ისწავლეს ენა, ფაქტები და პასუხის გაცემის უნარი.</span></div>
+      <div class="tip-item"><div class="tip-dot dot-blue"></div><span>AI-ი არ არის ყოვლისმცოდნე — ის ზოგჯერ ცდება! ამიტომ საჭიროა პასუხის გადამოწმება.</span></div>
+    </div>
+    <div class="tips-block">
+      <h3>💰 ღირს თუ არა?</h3>
+      <div class="tip-item"><div class="tip-dot dot-green"></div><span><strong>ChatGPT</strong> — უფასო ვერსია ხელმისაწვდომია. ChatGPT Plus — $20/თვე.</span></div>
+      <div class="tip-item"><div class="tip-dot dot-green"></div><span><strong>Claude</strong> — უფასო ვერსია ხელმისაწვდომია claude.ai-ზე. Pro — $20/თვე.</span></div>
+      <div class="tip-item"><div class="tip-dot dot-green"></div><span><strong>Gemini</strong> — Google-ის მომხმარებლებისთვის ხელმისაწვდომია. Google One AI Premium — $19.99/თვე.</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ PAGE: GUIDE ══════════════ -->
+<div id="page-guide" class="page">
+  <div class="section fade-in">
+    <div class="section-header">
+      <div class="section-eyebrow badge badge-green">სახელმძღვანელო</div>
+      <h2 class="section-title">რა <span style="color:var(--green)">უნდა</span> გააკეთოთ</h2>
+      <p class="section-desc">ეს რჩევები AI-ის სწორი გამოყენებისთვის დაგეხმარებათ</p>
+    </div>
+    <div class="cards-grid">
+      <div class="card do">
+        <span class="card-icon">🎯</span>
+        <div class="card-title">კონკრეტული კითხვა დასვით</div>
+        <div class="card-desc">რაც უფრო ზუსტი და დეტალური კითხვაა, მით უკეთეს პასუხს მიიღებთ. "მომიმზადე ელ-ფოსტა" ნაცვლად, დაწერეთ ვინ, რა, რატომ.</div>
+      </div>
+      <div class="card do">
+        <span class="card-icon">📝</span>
+        <div class="card-title">კონტექსტი დაამატეთ</div>
+        <div class="card-desc">უთხარით AI-ს ვინ ხართ, რა თანამდებობაზე მუშაობთ და რა მიზნისთვის გჭირდებათ პასუხი. AI-ს ძალიან უყვარს კონტექსტი!</div>
+      </div>
+      <div class="card do">
+        <span class="card-icon">🔄</span>
+        <div class="card-title">გადასინჯვა სთხოვეთ</div>
+        <div class="card-desc">თუ პასუხი სასურველი არ არის: "ამ ტონით გადაწერე", "მოკლედ", "ფორმალურად" — AI ადვილად ადაპტირდება.</div>
+      </div>
+      <div class="card do">
+        <span class="card-icon">🔍</span>
+        <div class="card-title">ყოველთვის შეამოწმეთ</div>
+        <div class="card-desc">AI-ი ციფრებს, სახელებს, თარიღებს ზოგჯერ არასწორად ამბობს. ნებისმიერი მნიშვნელოვანი ფაქტი გადაამოწმეთ!</div>
+      </div>
+      <div class="card do">
+        <span class="card-icon">💬</span>
+        <div class="card-title">დიალოგი გააბეთ</div>
+        <div class="card-desc">AI-ი ახსოვს საუბრის კონტექსტი. შეგიძლიათ გააგრძელოთ: "კარგია, ახლა კიდევ დაამატე..." ან "პირველი ვარიანტი შეასწორე".</div>
+      </div>
+      <div class="card do">
+        <span class="card-icon">🎭</span>
+        <div class="card-title">როლი მიეცით</div>
+        <div class="card-desc">"შენ ხარ HR სპეციალისტი" ან "შენ ხარ გამოცდილი ჟურნალისტი" — როლი დრამატულად აუმჯობესებს პასუხის ხარისხს!</div>
+      </div>
+    </div>
+
+    <div class="divider" style="margin:2rem 0"></div>
+
+    <div class="section-header">
+      <div class="section-eyebrow badge badge-red">ფრთხილად!</div>
+      <h2 class="section-title">რა <span style="color:var(--red)">არ</span> უნდა გააკეთოთ</h2>
+    </div>
+    <div class="cards-grid">
+      <div class="card dont">
+        <span class="card-icon">🔒</span>
+        <div class="card-title">პარსლური მონაცემები — არა!</div>
+        <div class="card-desc">პაროლები, საბანკო ნომრები, პირადი ID, ტელეფონები — ეს ინფორმაცია AI ჩატში არ ჩასვათ. ეს სახიფათოა!</div>
+      </div>
+      <div class="card dont">
+        <span class="card-icon">🏢</span>
+        <div class="card-title">კომპანიის საიდუმლოება</div>
+        <div class="card-desc">შიდა გეგმები, კლიენტების სია, ფინანსური მონაცემები — ეს ინფო AI-ის სერვერებზე ინახება. ფრთხილად!</div>
+      </div>
+      <div class="card dont">
+        <span class="card-icon">😌</span>
+        <div class="card-title">ბრმად ნუ ენდობით</div>
+        <div class="card-desc">AI-ი ძალიან თავდაჯერებულად ლაპარაკობს — თუნდაც მცდარ ინფოზე. "ჰალუცინაცია" ხდება. ფაქტები შეამოწმეთ!</div>
+      </div>
+      <div class="card dont">
+        <span class="card-icon">📄</span>
+        <div class="card-title">სრულ ნამუშევრად ნუ ჩათვლით</div>
+        <div class="card-desc">AI-ი ასისტენტია, არა შემცვლელი. პასუხი ყოველთვის შეამოწმეთ, შეასწორეთ, საკუთარი სტილი შეატანეთ.</div>
+      </div>
+      <div class="card dont">
+        <span class="card-icon">⚕️</span>
+        <div class="card-title">სამედიცინო და სამართლებრივი</div>
+        <div class="card-desc">AI-ი ექიმი და იურისტი არ არის. სერიოზულ საკითხებში ყოველთვის პროფესიონალს მიმართეთ!</div>
+      </div>
+      <div class="card dont">
+        <span class="card-icon">😤</span>
+        <div class="card-title">ერთი პასუხზე ნუ ჩერდებით</div>
+        <div class="card-desc">თუ პასუხი მოგეწონათ — სხვანაირად ჰკითხეთ. Prompt-ის ხარისხი ყველაფერს წყვეტს!</div>
+      </div>
+    </div>
+
+    <div class="divider" style="margin:2rem 0"></div>
+
+    <div class="section-header">
+      <div class="section-eyebrow badge badge-blue">AI-ები შედარებით</div>
+      <h2 class="section-title">ChatGPT, Claude და Gemini</h2>
+    </div>
+    <div class="comp-grid">
+      <div class="comp-card">
+        <h4>🟢 ChatGPT <span class="badge badge-green" style="font-size:11px">OpenAI</span></h4>
+        <ul>
+          <li>ყველაზე პოპულარული AI</li>
+          <li>DALL-E სურათების გენერაცია</li>
+          <li>Plugin-ების ეკოსისტემა</li>
+          <li>კოდის დაწერა და ანალიზი</li>
+          <li>GPT-4o — ძლიერი მოდელი</li>
+          <li>Excel ფაილების ანალიზი</li>
+        </ul>
+      </div>
+      <div class="comp-card featured">
+        <h4>🟠 Claude <span class="badge badge-orange" style="font-size:11px">Anthropic</span></h4>
+        <ul>
+          <li>გრძელი ტექსტების ანალიზი</li>
+          <li>ხარისხიანი, ნიუანსური წერა</li>
+          <li>PDF-ების შეჯამება</li>
+          <li>ეთიკური, გაწონასწორებული</li>
+          <li>ქართული ენა — კარგი!</li>
+          <li>კვლევა და სინთეზი</li>
+        </ul>
+      </div>
+      <div class="comp-card">
+        <h4>🔵 Gemini <span class="badge badge-blue" style="font-size:11px">Google</span></h4>
+        <ul>
+          <li>Google Workspace ინტეგრაცია</li>
+          <li>Gmail, Docs, Sheets-ში</li>
+          <li>რეალური დროის ძიება</li>
+          <li>YouTube ვიდეოს ანალიზი</li>
+          <li>Android-ზე ჩაშენებული</li>
+          <li>უახლესი ინფორმაცია</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tips-block">
+      <h3>💡 რომელი AI — სად გამოვიყენო?</h3>
+      <div class="tip-item"><div class="tip-dot dot-green"></div><span><strong>ChatGPT</strong> — კოდი, სურათების შექმნა, ყოველდღიური ზოგადი კითხვები, Excel-ის ანალიზი</span></div>
+      <div class="tip-item"><div class="tip-dot dot-orange"></div><span><strong>Claude</strong> — გრძელი დოკუმენტების ანალიზი, ხარისხიანი ტექსტის წერა, კვლევა, PDF-ები</span></div>
+      <div class="tip-item"><div class="tip-dot dot-blue"></div><span><strong>Gemini</strong> — Google-ის სერვისებში მუშაობა, ინტერნეტ-ძიება, Gmail-ის ელ-ფოსტები</span></div>
+    </div>
+
+    <div class="divider" style="margin:2rem 0"></div>
+
+    <div class="section-header">
+      <div class="section-eyebrow badge badge-purple">სამსახურში</div>
+      <h2 class="section-title">AI სამსახურში — პრაქტიკული სექცია</h2>
+    </div>
+    <div class="tips-block">
+      <h3>✍️ ელ-ფოსტები და კომუნიკაცია</h3>
+      <div class="tip-item"><div class="tip-dot dot-green"></div><span>მიეცით კონტექსტი: ადრესატი, ტონი (ფორმალური/მეგობრული), მიზანი, სიგრძე</span></div>
+      <div class="tip-item"><div class="tip-dot dot-green"></div><span>სთხოვეთ 2-3 ვარიანტი: "3 სხვადასხვა ტონის ელ-ფოსტა მომეცი"</span></div>
+      <div class="tip-item"><div class="tip-dot dot-red"></div><span>კლიენტის სრული სახელი, ელ-ფოსტა, ტელეფონი ჩატში ნუ ჩასვამთ</span></div>
+    </div>
+    <div class="tips-block">
+      <h3>🔍 კვლევა და ანალიზი</h3>
+      <div class="tip-item"><div class="tip-dot dot-blue"></div><span>PDF ჩასვით და სთხოვეთ: "ამის ძირითადი პუნქტები 5 ბიულეტით ამომიყვანე"</span></div>
+      <div class="tip-item"><div class="tip-dot dot-blue"></div><span>შედარებითი ანალიზი: "ეს ორი დოკუმენტი შეადარე X კრიტერიუმით"</span></div>
+      <div class="tip-item"><div class="tip-dot dot-red"></div><span>სტატისტიკა, ციფრები, თარიღები — ყოველთვის გადაამოწმეთ ორიგინალ წყაროში!</span></div>
+    </div>
+    <div class="tips-block">
+      <h3>⚙️ ყოველდღიური პროდუქტიულობა</h3>
+      <div class="tip-item"><div class="tip-dot dot-purple"></div><span>შეხვედრის ჩანაწერები → სთხოვეთ: Action items, გადაწყვეტილებები, შემდეგი ნაბიჯები</span></div>
+      <div class="tip-item"><div class="tip-dot dot-purple"></div><span>Brainstorming: "10 სხვადასხვა იდეა X-ისთვის, ყველა განსხვავებული კუთხიდან"</span></div>
+      <div class="tip-item"><div class="tip-dot dot-purple"></div><span>პრეზენტაციის სტრუქტურა: "5-სლაიდიანი პრეზენტაცია [თემაზე], სათაურები და ძირითადი პუნქტები"</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ PAGE: PROMPTING ══════════════ -->
+<div id="page-prompting" class="page">
+  <div class="section fade-in">
+    <div class="section-header">
+      <div class="section-eyebrow badge badge-purple">ხელოვნება</div>
+      <h2 class="section-title">Prompt-ის ხელოვნება</h2>
+      <p class="section-desc">Prompt — ეს თქვენი კითხვა ან ინსტრუქციაა AI-სთვის. კარგი prompt = ბევრად უკეთესი პასუხი!</p>
+    </div>
+
+    <div class="formula-box">
+      <span class="ft">🧪 უნივერსალური Prompt-ის ფორმულა</span>
+      <span class="hi-y">[როლი]</span> + <span class="hi-g">[კონტექსტი]</span> + <span class="hi-b">[ამოცანა]</span> + <span class="hi-p">[ფორმატი]</span>
+      <br><br>
+      <span style="opacity:0.6; font-size:13px">მაგალითი:</span><br>
+      "<span class="hi-y">შენ ხარ HR სპეციალისტი.</span> <span class="hi-g">ჩვენ გვაქვს 200 კაციანი სამაუწყებლო კომპანია.</span> <span class="hi-b">დამიწერე ვაკანსიის განცხადება სატელევიზიო პროდიუსერისთვის.</span> <span class="hi-p">3 პარაგრაფი, ფორმალური ტონი, ქართულად.</span>"
+    </div>
+
+    <div class="tab-row">
+      <button class="tab-btn t-gpt" onclick="switchTab('gpt',this,'prompting')">🟢 ChatGPT</button>
+      <button class="tab-btn" onclick="switchTab('claude',this,'prompting')">🟠 Claude</button>
+      <button class="tab-btn" onclick="switchTab('gemini',this,'prompting')">🔵 Gemini</button>
+    </div>
+
+    <div id="ptab-gpt" class="tab-content active">
+      <div class="tips-block" style="background:#f0fdf4; border-color:#86efac">
+        <h3>🟢 ChatGPT-ისთვის საუკეთესო მიდგომა</h3>
+        <div class="tip-item"><div class="tip-dot dot-green"></div><span>ChatGPT-ი ყველაზე კარგად პასუხობს <strong>"step by step"</strong> (ნაბიჯ-ნაბიჯ) ინსტრუქციებზე.</span></div>
+        <div class="tip-item"><div class="tip-dot dot-green"></div><span>Custom Instructions-ში დაყენეთ: <strong>"ყოველთვის ქართულად მიპასუხე, ლაკონიურად"</strong></span></div>
+        <div class="tip-item"><div class="tip-dot dot-green"></div><span>Excel ან PDF ფაილი ჩასვით და სთხოვეთ ანალიზი — ChatGPT ამაში ბრწყინავს.</span></div>
+      </div>
+      <div class="rule-row"><div class="rnum rn-g">1</div><span>სთხოვეთ <strong>"step by step"</strong> ახსნა — ეს ლოგიკურ ამოცანებში შედეგს მნიშვნელოვნად აუმჯობესებს</span></div>
+      <div class="rule-row"><div class="rnum rn-g">2</div><span>გამოიყენეთ <strong>Custom Instructions</strong> პარამეტრი — ის ყოველ საუბარში გიზოგავთ დროს</span></div>
+      <div class="rule-row"><div class="rnum rn-g">3</div><span>ფაილი ატვირთეთ — ChatGPT Excel-ს, PDF-ს, სურათებს ანალიზებს</span></div>
+      <br>
+      <div class="prompt-card">
+        <div class="prompt-card-head ph-gpt">⚠️ სუსტი prompt → ✅ ძლიერი prompt — ელ-ფოსტის მაგალითი</div>
+        <div class="prompt-bad"><span class="plabel">❌ სუსტი</span>"ელ-ფოსტა კოლეგისთვის"</div>
+        <div class="prompt-good"><span class="plabel">✅ ძლიერი</span>"შენ ხარ კომუნიკაციის სპეციალისტი. დამიწერე ელ-ფოსტა კოლეგა გიორგი ბერიძისთვის, რომელსაც ვთხოვ ხვალ 14:00 საათზე ონლაინ შეხვედრაზე დასწრებას. ტონი: მეგობრული, მაგრამ პროფესიული. სიგრძე: 3-4 წინადადება. ქართულად."</div>
+      </div>
+      <div class="prompt-card">
+        <div class="prompt-card-head ph-gpt">⚠️ სუსტი → ✅ ძლიერი — ანალიზი</div>
+        <div class="prompt-bad"><span class="plabel">❌ სუსტი</span>"ამ ინფოს ანალიზი"</div>
+        <div class="prompt-good"><span class="plabel">✅ ძლიერი</span>"ეს ჩვენი Q3 ყოველთვიური სამაუწყებლო სიახლეების მაჩვენებლებია. Step by step გაანალიზე: 1) ძირითადი ტენდენციები, 2) ყველაზე წარმატებული 3 პროგრამა, 3) 2 კონკრეტული რეკომენდაცია Q4-ისთვის. ბიულეტებით, ქართულად."</div>
+      </div>
+    </div>
+
+    <div id="ptab-claude" class="tab-content">
+      <div class="tips-block" style="background:#fff7ed; border-color:#fdba74">
+        <h3>🟠 Claude-ისთვის საუკეთესო მიდგომა</h3>
+        <div class="tip-item"><div class="tip-dot dot-orange"></div><span>Claude-ს <strong>კონტექსტის სიღრმე</strong> უყვარს — რაც მეტ ინფოს მისცემთ, მით ჭკვიანია პასუხი.</span></div>
+        <div class="tip-item"><div class="tip-dot dot-orange"></div><span>გრძელი დოკუმენტი ჩასვით: Claude 200,000 სიტყვამდე ტექსტს ანალიზებს ერთდროულად!</span></div>
+        <div class="tip-item"><div class="tip-dot dot-orange"></div><span>სტილის მაგალითი მიეცით: "ამ სტილში დამიწერე:" — Claude ზუსტად გაიმეორებს.</span></div>
+      </div>
+      <div class="rule-row"><div class="rnum rn-o">1</div><span>Claude-ს <strong>გრძელი კონტექსტი მოსწონს</strong> — ხელშეკრულება, ანგარიში, PDF — ჩასვით, ის ყველაფერს წაიკითხავს</span></div>
+      <div class="rule-row"><div class="rnum rn-o">2</div><span>სთხოვეთ <strong>"ჯერ ნაბიჯ-ნაბიჯ მოიფიქრე"</strong> — Claude ღრმა, ნიუანსიან ანალიზს გაძლევთ</span></div>
+      <div class="rule-row"><div class="rnum rn-o">3</div><span>სტილი: <strong>"ამ ტონით:"</strong> + მაგალითი ქვემოთ — Claude ზუსტ სტილს გაიმეორებს</span></div>
+      <br>
+      <div class="prompt-card">
+        <div class="prompt-card-head ph-claude">⚠️ სუსტი → ✅ ძლიერი — ხელშეკრულება</div>
+        <div class="prompt-bad"><span class="plabel">❌ სუსტი</span>"ეს ხელშეკრულება კარგია?"</div>
+        <div class="prompt-good"><span class="plabel">✅ ძლიერი</span>"[ხელშეკრულების ტექსტი]. ჩვენ ვართ მომხმარებელი, არა მომწოდებელი. გაანალიზე: 1) ჩვენთვის სარისკო პუნქტები, 2) გამოტოვებული დაცვა, 3) 3 კონკრეტული ცვლილება, რომელსაც ვთხოვდი. ქართულად, ბიულეტებით."</div>
+      </div>
+      <div class="prompt-card">
+        <div class="prompt-card-head ph-claude">⚠️ სუსტი → ✅ ძლიერი — ანგარიში</div>
+        <div class="prompt-bad"><span class="plabel">❌ სუსტი</span>"Q3 ანგარიში"</div>
+        <div class="prompt-good"><span class="plabel">✅ ძლიერი</span>"შენ ხარ ბიზნეს-ანალიტიკოსი. ჩვენ ვართ საზოგადოებრივი მაუწყებელი, 300 თანამშრომელი. Q3 მაჩვენებლები: მაყურებლების რაოდენობა +12%, 3 ახალი გადაცემა გაშვებული, ციფრული პლატფორმა +40%. დამიწერე ოფიციალური ანგარიში: Executive Summary, მიღწევები, გამოწვევები, Q4 სამოქმედო გეგმა. ფორმალური ტონი, ქართულად."</div>
+      </div>
+    </div>
+
+    <div id="ptab-gemini" class="tab-content">
+      <div class="tips-block" style="background:#eff6ff; border-color:#93c5fd">
+        <h3>🔵 Gemini-სთვის საუკეთესო მიდგომა</h3>
+        <div class="tip-item"><div class="tip-dot dot-blue"></div><span>Gemini-ს ყველაზე დიდი ძალა — <strong>ინტერნეტ-ძიება realtime</strong>. სთხოვეთ უახლესი ინფო.</span></div>
+        <div class="tip-item"><div class="tip-dot dot-blue"></div><span><strong>Google Docs-ში</strong>: "Help me write" ღილაკი — Gemini პირდაპირ დოკუმენტში წერს.</span></div>
+        <div class="tip-item"><div class="tip-dot dot-blue"></div><span><strong>Gmail-ში</strong>: "Help me write" — ელ-ფოსტის ავტომატური გენერაცია კონტექსტის მიხედვით.</span></div>
+      </div>
+      <div class="rule-row"><div class="rnum rn-b">1</div><span>სთხოვეთ <strong>"მოძებნე და შეაჯამე"</strong> — Gemini ინტერნეტიდან უახლეს ინფოს მოიძიებს</span></div>
+      <div class="rule-row"><div class="rnum rn-b">2</div><span><strong>Google Workspace</strong>: Docs, Sheets, Gmail-ში პირდაპირ გამოიყენეთ ჩაშენებული Gemini</span></div>
+      <div class="rule-row"><div class="rnum rn-b">3</div><span>YouTube ბმული ჩასვით: Gemini <strong>ვიდეოს კონტენტს ანალიზებს</strong></span></div>
+      <br>
+      <div class="prompt-card">
+        <div class="prompt-card-head ph-gemini">⚠️ სუსტი → ✅ ძლიერი — ბაზრის კვლევა</div>
+        <div class="prompt-bad"><span class="plabel">❌ სუსტი</span>"ციფრული მედია"</div>
+        <div class="prompt-good"><span class="plabel">✅ ძლიერი</span>"მოძებნე და შეაჯამე: 2024-2025 წელს ციფრული მაუწყებლობის ძირითადი ტენდენციები კავკასიის რეგიონში. ძირითადი მოთამაშეები, მაყურებლების ცვლილება, ახალი ტექნოლოგიები. გამოიყენე უახლესი წყაროები. ქართულად, ბიულეტებით."</div>
+      </div>
+      <div class="prompt-card">
+        <div class="prompt-card-head ph-gemini">⚠️ სუსტი → ✅ ძლიერი — Gmail</div>
+        <div class="prompt-bad"><span class="plabel">❌ სუსტი</span>"ელ-ფოსტა"</div>
+        <div class="prompt-good"><span class="plabel">✅ ძლიერი</span>"Gmail-ში (Help me write): დამიწერე ელ-ფოსტა პარტნიორ ორგანიზაციისთვის. ვთხოვ 2025 წლის ერთობლივი პროექტის განხილვის შეხვედრას. ტონი: ფორმალური, მეგობრული. ქართულად. 4-5 წინადადება."</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ PAGE: STATS ══════════════ -->
+<div id="page-stats" class="page">
+  <div class="section fade-in">
+    <div class="section-header">
+      <div class="section-eyebrow badge badge-blue">ციფრები და ფაქტები</div>
+      <h2 class="section-title">AI — მსოფლიო სტატისტიკა</h2>
+      <p class="section-desc">ხელოვნური ინტელექტი სწრაფად ცვლის სამყაროს. ეს ციფრები ყოველწლიურად იზრდება.</p>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-num" style="color:var(--blue)">$184B</div>
+        <div class="stat-label">AI ინდუსტრიის ღირებულება 2024 წელს (მსოფლიო)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" style="color:var(--green)">200M+</div>
+        <div class="stat-label">ChatGPT-ის აქტიური მომხმარებელი კვირაში</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" style="color:var(--orange)">77%</div>
+        <div class="stat-label">კომპანიების წილი, რომლებიც AI-ს სამსახურებრივად იყენებენ</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" style="color:var(--purple)">$15.7T</div>
+        <div class="stat-label">AI-ის პოტენციური წვლილი გლობალურ ეკონომიკაში 2030 წლისთვის</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" style="color:var(--teal)">40%</div>
+        <div class="stat-label">სამსახურების წილი, სადაც AI ამა თუ იმ ფორმით მუშაობს</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" style="color:var(--pink)">2.5x</div>
+        <div class="stat-label">სამუშაოს ეფექტიანობა AI-ით, კვლევის მიხედვით</div>
+      </div>
+    </div>
+
+    <div class="divider" style="margin:2rem 0"></div>
+
+    <div class="section-header">
+      <div class="section-eyebrow badge badge-purple">ზრდის ტენდენციები</div>
+      <h2 class="section-title">AI-ის გამოყენება სფეროების მიხედვით</h2>
+    </div>
+    <div id="trend-bars" style="background:var(--white); border:2px solid var(--border); border-radius:var(--radius); padding:1.75rem; margin-bottom:2rem;">
+      <div class="trend-bar-wrap">
+        <div class="trend-label-row"><span>🏥 ჯანდაცვა</span><span style="font-weight:700">78%</span></div>
+        <div class="trend-bar-bg"><div class="trend-bar-fill" style="width:0%; background:var(--blue)" data-width="78%">78%</div></div>
+      </div>
+      <div class="trend-bar-wrap">
+        <div class="trend-label-row"><span>💰 ფინანსები</span><span style="font-weight:700">71%</span></div>
+        <div class="trend-bar-bg"><div class="trend-bar-fill" style="width:0%; background:var(--green)" data-width="71%">71%</div></div>
+      </div>
+      <div class="trend-bar-wrap">
+        <div class="trend-label-row"><span>📺 მედია და გართობა</span><span style="font-weight:700">65%</span></div>
+        <div class="trend-bar-bg"><div class="trend-bar-fill" style="width:0%; background:var(--purple)" data-width="65%">65%</div></div>
+      </div>
+      <div class="trend-bar-wrap">
+        <div class="trend-label-row"><span>🎓 განათლება</span><span style="font-weight:700">60%</span></div>
+        <div class="trend-bar-bg"><div class="trend-bar-fill" style="width:0%; background:var(--orange)" data-width="60%">60%</div></div>
+      </div>
+      <div class="trend-bar-wrap">
+        <div class="trend-label-row"><span>🛒 საცალო ვაჭრობა</span><span style="font-weight:700">54%</span></div>
+        <div class="trend-bar-bg"><div class="trend-bar-fill" style="width:0%; background:var(--teal)" data-width="54%">54%</div></div>
+      </div>
+      <div class="trend-bar-wrap">
+        <div class="trend-label-row"><span>📡 მაუწყებლობა</span><span style="font-weight:700">47%</span></div>
+        <div class="trend-bar-bg"><div class="trend-bar-fill" style="width:0%; background:var(--pink)" data-width="47%">47%</div></div>
+      </div>
+    </div>
+
+    <div class="divider" style="margin:2rem 0"></div>
+
+    <div class="section-header">
+      <div class="section-eyebrow badge badge-orange">მომავლის ტენდენციები</div>
+      <h2 class="section-title">AI 2025–2030 — რა გველის?</h2>
+    </div>
+
+    <div id="faq-accordion">
+      <div class="accordion-item">
+        <button class="accordion-head" onclick="toggleAccordion(this)">
+          🤖 AI-ი სამუშაოს წაართმევს?
+          <span class="accordion-arrow">▼</span>
+        </button>
+        <div class="accordion-body">
+          კვლევები გვიჩვენებს, რომ AI ძირითადად <strong>ცვლის</strong> სამუშაოს შინაარსს, არ შლის სამუშაო ადგილებს. ახალი პროფესიები ჩნდება: AI ტრენერი, Prompt ინჟინერი, AI-ის ეთიკის სპეციალისტი. 85 მილიონი სამუშაო შეიცვლება, მაგრამ 97 მილიონი ახალი გაჩნდება 2025 წლისთვის (WEF-ის კვლევა).
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-head" onclick="toggleAccordion(this)">
+          📺 AI მაუწყებლობაში — რა ხდება?
+          <span class="accordion-arrow">▼</span>
+        </button>
+        <div class="accordion-body">
+          AI უკვე გამოიყენება: ვიდეო-მასალის ავტომატური სუბტიტრები, სიახლეების გამოქვეყნება, ამინდის ანიმაცია, ხმის სინთეზი. BBC, Reuters, Associated Press AI-ს ახალი ამბებისთვის იყენებს. ქართული მედია ამ გზაზე პირველ ნაბიჯებს დგამს.
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-head" onclick="toggleAccordion(this)">
+          🔒 AI-ი უსაფრთხოა?
+          <span class="accordion-arrow">▼</span>
+        </button>
+        <div class="accordion-body">
+          AI-ის კომპანიები (Anthropic, OpenAI, Google) უსაფრთხოებაში მილიარდებს ხარჯავენ. მაგრამ: თქვენი პირადი ინფო შეიძლება ტრენინგში გამოიყენოს. ChatGPT Plus-ში შეგიძლიათ Memory გამოთიშოთ. Claude.ai მომხმარებლის მონაცემებს უფრო მეტად იცავს.
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-head" onclick="toggleAccordion(this)">
+          🇬🇪 ქართული ენა AI-ში — როგორ?
+          <span class="accordion-arrow">▼</span>
+        </button>
+        <div class="accordion-body">
+          ქართული ენა AI-ისთვის "ნაკლებად გავრცელებული" ენაა, ამიტომ ხარისხი ინგლისურზე დაბალია. Claude და ChatGPT-4o საკმაოდ კარგად მუშაობენ ქართულად. Google Translate AI-ი ქართულისთვის განსაკუთრებით გაუმჯობესდა. ქართული ინსტრუქცია + ინგლისური პასუხი ხშირად უკეთეს შედეგს იძლევა.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════ PAGE: GEN AI ══════════════ -->
+<div id="page-genai" class="page">
+  <div class="section fade-in">
+    <div class="section-header">
+      <div class="section-eyebrow badge badge-pink">Generative AI</div>
+      <h2 class="section-title">გენერაციული AI — ახალი სამყარო</h2>
+      <p class="section-desc">Generative AI — ეს ხელოვნური ინტელექტია, რომელსაც შეუძლია ახალი კონტენტის შექმნა: ტექსტი, სურათი, ხმა, ვიდეო, კოდი.</p>
+    </div>
+
+    <div class="cards-grid" style="grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); margin-bottom:2.5rem">
+      <div class="card" style="border-top:5px solid var(--blue); text-align:center">
+        <span class="card-icon">📝</span>
+        <div class="card-title">ტექსტი</div>
+        <div class="card-desc">ChatGPT, Claude, Gemini — ტექსტის წერა, ანალიზი, თარგმანი</div>
+      </div>
+      <div class="card" style="border-top:5px solid var(--pink); text-align:center">
+        <span class="card-icon">🎨</span>
+        <div class="card-title">სურათები</div>
+        <div class="card-desc">DALL-E, Midjourney, Stable Diffusion — AI-ით შექმნილი გამოსახულებები</div>
+      </div>
+      <div class="card" style="border-top:5px solid var(--purple); text-align:center">
+        <span class="card-icon">🎵</span>
+        <div class="card-title">ხმა და მუსიკა</div>
+        <div class="card-desc">Suno, ElevenLabs — AI-ით შექმნილი სიმღერები და ხმის კლონირება</div>
+      </div>
+      <div class="card" style="border-top:5px solid var(--orange); text-align:center">
+        <span class="card-icon">🎬</span>
+        <div class="card-title">ვიდეო</div>
+        <div class="card-desc">Sora, Runway, Pika — AI-ით შექმნილი ვიდეო-კლიპები</div>
+      </div>
+      <div class="card" style="border-top:5px solid var(--teal); text-align:center">
+        <span class="card-icon">💻</span>
+        <div class="card-title">კოდი</div>
+        <div class="card-desc">GitHub Copilot, Cursor — AI-ი კოდს წერს პროგრამისტებისთვის</div>
+      </div>
+    </div>
+
+    <div class="divider" style="margin:2rem 0"></div>
+
+    <div class="section-header">
+      <div class="section-eyebrow badge badge-purple">ინსტრუმენტები</div>
+      <h2 class="section-title">საუკეთესო Generative AI ინსტრუმენტები</h2>
+    </div>
+    <div class="tools-grid">
+      <div class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon" style="background:#f0fdf4">🟢</div>
+          <div>
+            <div class="tool-name">ChatGPT</div>
+            <div class="tool-company">OpenAI · chat.openai.com</div>
+          </div>
+        </div>
+        <div class="tool-desc">ყველაზე პოპულარული AI ასისტენტი. ტექსტი, სურათები (DALL-E), კოდი, Excel-ის ანალიზი. უფასო და Plus ვერსია.</div>
+        <div class="tool-tags">
+          <span class="tool-tag badge-green">ტექსტი</span>
+          <span class="tool-tag badge-pink">სურათი</span>
+          <span class="tool-tag badge-blue">კოდი</span>
+        </div>
+        <a class="tool-link" href="https://chat.openai.com" target="_blank">გახსნა →</a>
+      </div>
+      <div class="tool-card" style="border-color:var(--orange)">
+        <div class="tool-header">
+          <div class="tool-icon" style="background:#fff7ed">🟠</div>
+          <div>
+            <div class="tool-name">Claude</div>
+            <div class="tool-company">Anthropic · claude.ai</div>
+          </div>
+        </div>
+        <div class="tool-desc">ხარისხიანი ტექსტი, გრძელი დოკუმენტების ანალიზი. ეთიკური და გაწონასწორებული. ქართული ენა კარგია!</div>
+        <div class="tool-tags">
+          <span class="tool-tag badge-orange">ტექსტი</span>
+          <span class="tool-tag badge-orange">ანალიზი</span>
+          <span class="tool-tag badge-orange">კვლევა</span>
+        </div>
+        <a class="tool-link" href="https://claude.ai" target="_blank">გახსნა →</a>
+      </div>
+      <div class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon" style="background:#eff6ff">🔵</div>
+          <div>
+            <div class="tool-name">Gemini</div>
+            <div class="tool-company">Google · gemini.google.com</div>
+          </div>
+        </div>
+        <div class="tool-desc">Google-ის AI, ინტეგრირებული Gmail, Docs, Sheets-ში. ინტერნეტ-ძიება realtime. Android-ზე ჩაშენებული.</div>
+        <div class="tool-tags">
+          <span class="tool-tag badge-blue">ტექსტი</span>
+          <span class="tool-tag badge-blue">ძიება</span>
+          <span class="tool-tag badge-blue">Google</span>
+        </div>
+        <a class="tool-link" href="https://gemini.google.com" target="_blank">გახსნა →</a>
+      </div>
+      <div class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon" style="background:#fdf2f8">🎨</div>
+          <div>
+            <div class="tool-name">Midjourney</div>
+            <div class="tool-company">Midjourney · midjourney.com</div>
+          </div>
+        </div>
+        <div class="tool-desc">სამყაროს საუკეთესო სურათის გენერატორი. ტექსტიდან ფოტო-ხარისხის სურათები. Discord-ის გავლით ან ვებ-ვერსია.</div>
+        <div class="tool-tags">
+          <span class="tool-tag badge-purple">სურათი</span>
+          <span class="tool-tag badge-purple">ხელოვნება</span>
+        </div>
+        <a class="tool-link" href="https://midjourney.com" target="_blank">გახსნა →</a>
+      </div>
+      <div class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon" style="background:#fef9c3">🎵</div>
+          <div>
+            <div class="tool-name">Suno AI</div>
+            <div class="tool-company">Suno · suno.com</div>
+          </div>
+        </div>
+        <div class="tool-desc">ტექსტიდან სიმღერა — სიტყვები, ჟანრი, ტემპი ჩასვით და AI სრულ სიმღერას შექმნის. ხმა, ინსტრუმენტები, ლირიკა.</div>
+        <div class="tool-tags">
+          <span class="tool-tag badge-yellow">მუსიკა</span>
+          <span class="tool-tag badge-yellow">ხმა</span>
+        </div>
+        <a class="tool-link" href="https://suno.com" target="_blank">გახსნა →</a>
+      </div>
+      <div class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon" style="background:#f0fdfa">🎬</div>
+          <div>
+            <div class="tool-name">Runway ML</div>
+            <div class="tool-company">Runway · runwayml.com</div>
+          </div>
+        </div>
+        <div class="tool-desc">ვიდეოს გენერაცია, ედიტინგი, სპეც-ეფექტები AI-ით. ტექსტიდან ვიდეო, სურათიდან ვიდეო. კინოინდუსტრიაში გამოიყენება.</div>
+        <div class="tool-tags">
+          <span class="tool-tag" style="background:#f0fdfa; color:#0f766e">ვიდეო</span>
+          <span class="tool-tag" style="background:#f0fdfa; color:#0f766e">ეფექტები</span>
+        </div>
+        <a class="tool-link" href="https://runwayml.com" target="_blank">გახსნა →</a>
+      </div>
+      <div class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon" style="background:#fdf2f8">🗣️</div>
+          <div>
+            <div class="tool-name">ElevenLabs</div>
+            <div class="tool-company">ElevenLabs · elevenlabs.io</div>
+          </div>
+        </div>
+        <div class="tool-desc">ხმის კლონირება და სინთეზი. ტექსტი → ბუნებრივი ხმა. 30+ ენა. პოდკასტები, audiobook-ები, ხმოვანი ასისტენტები.</div>
+        <div class="tool-tags">
+          <span class="tool-tag badge-pink">ხმა</span>
+          <span class="tool-tag badge-pink">კლონირება</span>
+        </div>
+        <a class="tool-link" href="https://elevenlabs.io" target="_blank">გახსნა →</a>
+      </div>
+      <div class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon" style="background:#f5f3ff">✏️</div>
+          <div>
+            <div class="tool-name">Notion AI</div>
+            <div class="tool-company">Notion · notion.so</div>
+          </div>
+        </div>
+        <div class="tool-desc">Notion-ის ჩაშენებული AI. დოკუმენტების შეჯამება, ბრეინსტორმინგი, ტექსტის გაუმჯობესება, თარგმანი — პირდაპირ Notion-ში.</div>
+        <div class="tool-tags">
+          <span class="tool-tag badge-purple">დოკუმენტი</span>
+          <span class="tool-tag badge-purple">ორგანიზება</span>
+        </div>
+        <a class="tool-link" href="https://notion.so" target="_blank">გახსნა →</a>
+      </div>
+      <div class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon" style="background:#f0fdf4">💻</div>
+          <div>
+            <div class="tool-name">GitHub Copilot</div>
+            <div class="tool-company">Microsoft/GitHub · github.com</div>
+          </div>
+        </div>
+        <div class="tool-desc">AI პროგრამისტის ასისტენტი. კომენტარიდან კოდი, შეცდომების პოვნა, კოდის ახსნა. VS Code-ში ჩაშენებული.</div>
+        <div class="tool-tags">
+          <span class="tool-tag badge-green">კოდი</span>
+          <span class="tool-tag badge-green">პროგრამირება</span>
+        </div>
+        <a class="tool-link" href="https://github.com/features/copilot" target="_blank">გახსნა →</a>
+      </div>
+    </div>
+
+    <div class="tips-block" style="background:var(--purple-light); border-color:#c4b5fd">
+      <h3>⚠️ Generative AI-ის გამოყენებისას ფრთხილად</h3>
+      <div class="tip-item"><div class="tip-dot dot-purple"></div><span><strong>Deepfake-ები:</strong> AI-ი სახეებს, ხმებს ადვილად ქმნის. ვიდეო ან ხმა ყოველთვის გადაამოწმეთ!</span></div>
+      <div class="tip-item"><div class="tip-dot dot-purple"></div><span><strong>საავტორო უფლებები:</strong> AI-ით შექმნილ კონტენტს შეიძლება სამართლებრივი შეზღუდვები ჰქონდეს.</span></div>
+      <div class="tip-item"><div class="tip-dot dot-purple"></div><span><strong>სტიკერი "AI-ით შექმნილი":</strong> ეთიკურად სწორია, AI-ის კონტენტი ყოველთვის მონიშნოთ.</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ PAGE: GAME ══════════════ -->
+<div id="page-game" class="page">
+  <div class="section fade-in">
+    <div id="game-section">
+      <div class="game-header">
+        <div class="game-title">🎮 Prompt-ის სახელოსნო</div>
+        <div class="game-desc">სცადეთ ხელი! ყოველ გამოწვევაში დაწერეთ prompt და მიიღეთ შეფასება 0–10 ქულა.</div>
+      </div>
+
+      <div class="score-display">
+        <div class="score-item">
+          <div class="score-num" id="total-score" style="color:var(--blue)">0</div>
+          <div class="score-lbl">ქულა</div>
+        </div>
+        <div class="score-item">
+          <div class="score-num" id="current-q" style="color:var(--orange)">1</div>
+          <div class="score-lbl">გამოწვევა</div>
+        </div>
+        <div class="score-item">
+          <div class="score-num" id="total-q" style="color:var(--text-muted)">5</div>
+          <div class="score-lbl">სულ</div>
+        </div>
+      </div>
+
+      <div class="game-progress" id="game-progress"></div>
+
+      <div id="game-active">
+        <div class="challenge-box">
+          <div class="challenge-scenario" id="challenge-scenario">გამოწვევა 1</div>
+          <div class="challenge-task" id="challenge-task">დატვირთვა...</div>
+          <div class="challenge-hint" id="challenge-hint">💡 მინიშნება</div>
+          <textarea class="game-input" id="game-input" placeholder="თქვენი prompt-ი აქ..."></textarea>
+          <br>
+          <button class="game-btn" id="submit-btn" onclick="submitPrompt()">✅ პასუხის შეფასება</button>
+          <button class="game-next-btn" id="next-btn" onclick="nextChallenge()">შემდეგი გამოწვევა →</button>
+        </div>
+
+        <div class="feedback-box" id="feedback-box">
+          <div class="fb-score" id="fb-score">0/10</div>
+          <div class="fb-verdict" id="fb-verdict"></div>
+          <div class="fb-detail" id="fb-detail"></div>
+          <div class="fb-ideal" id="fb-ideal"></div>
+        </div>
+      </div>
+
+      <div class="game-result" id="game-result">
+        <div class="result-emoji" id="result-emoji">🏆</div>
+        <div class="result-title" id="result-title">გაარქვი!</div>
+        <div class="result-desc" id="result-desc"></div>
+        <button class="restart-btn" onclick="restartGame()">🔄 ხელახლა თამაში</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="page-nav">
+  <button class="pnav-btn active" id="pnav-home" onclick="showPage('home')">
+    <span class="pnav-icon">🏠</span>
+    <span>მთავარი</span>
+  </button>
+  <button class="pnav-btn" id="pnav-guide" onclick="showPage('guide')">
+    <span class="pnav-icon">📋</span>
+    <span>გზამკვლევი</span>
+  </button>
+  <button class="pnav-btn" id="pnav-prompting" onclick="showPage('prompting')">
+    <span class="pnav-icon">🎨</span>
+    <span>Prompting</span>
+  </button>
+  <button class="pnav-btn" id="pnav-stats" onclick="showPage('stats')">
+    <span class="pnav-icon">📊</span>
+    <span>სტატისტ.</span>
+  </button>
+  <button class="pnav-btn" id="pnav-genai" onclick="showPage('genai')">
+    <span class="pnav-icon">🎭</span>
+    <span>Gen AI</span>
+  </button>
+  <button class="pnav-btn" id="pnav-game" onclick="showPage('game')">
+    <span class="pnav-icon">🎮</span>
+    <span>თამაში</span>
+  </button>
+</div>
+
+<footer class="site-footer">
+  <div class="org">🏛️ საქართველოს საზოგადოებრივი მაუწყებელი</div>
+  <div>AI სახელმძღვანელო თანამშრომლებისთვის · 2025</div>
+  <div style="margin-top:8px; font-size:12px">ChatGPT (OpenAI) · Claude (Anthropic) · Gemini (Google)</div>
+</footer>
+
+<script>
+// ─── PAGE NAVIGATION ───
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.pnav-btn').forEach(b => b.classList.remove('active'));
+  const page = document.getElementById('page-' + id);
+  if (page) { page.classList.add('active'); page.classList.add('fade-in'); }
+  const btn = document.getElementById('pnav-' + id);
+  if (btn) btn.classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+  if (id === 'stats') setTimeout(animateBars, 300);
+}
+
+// ─── PROMPT TABS ───
+function switchTab(id, btn, page) {
+  const prefix = page === 'prompting' ? 'ptab-' : 'ctab-';
+  document.querySelectorAll('[id^="' + prefix + '"]').forEach(el => el.classList.remove('active'));
+  document.getElementById(prefix + id).classList.add('active');
+  const parent = btn.closest('.tab-row');
+  parent.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('t-gpt','t-claude','t-gemini'));
+  btn.classList.add('t-' + id);
+}
+
+// ─── ACCORDION ───
+function toggleAccordion(btn) {
+  const body = btn.nextElementSibling;
+  const arrow = btn.querySelector('.accordion-arrow');
+  const isOpen = body.classList.contains('open');
+  document.querySelectorAll('.accordion-body').forEach(b => {
+    b.classList.remove('open');
+    b.previousElementSibling.querySelector('.accordion-arrow').style.transform = 'rotate(0deg)';
+  });
+  if (!isOpen) {
+    body.classList.add('open');
+    arrow.style.transform = 'rotate(180deg)';
+  }
+}
+
+// ─── TREND BARS ───
+function animateBars() {
+  document.querySelectorAll('.trend-bar-fill').forEach(bar => {
+    const target = bar.getAttribute('data-width');
+    bar.style.width = target;
+  });
+}
+
+// ─── GAME ───
+const challenges = [
+  {
+    scenario: "📧 სამსახურებრივი სიტუაცია",
+    task: "თქვენ HR სპეციალისტი ხართ საქართველოს საზოგადოებრივ მაუწყებელში. დაწერეთ prompt, რომ AI-მ შეადგინოს ვაკანსიის განცხადება ახალი ამბების რედაქტორისთვის.",
+    hint: "💡 გახსოვდეთ ფორმულა: [როლი] + [კონტექსტი] + [ამოცანა] + [ფორმატი]",
+    ideal: "შენ ხარ HR სპეციალისტი. ჩვენ ვართ საქართველოს საზოგადოებრივი მაუწყებელი, 300+ თანამშრომელი. დამიწერე ვაკანსიის განცხადება ახალი ამბების გამოცდილი რედაქტორისთვის: მოთხოვნები, შეთავაზებული სარგო, სამუშაო გარემო. ფორმალური ტონი, ქართულად, 3 პარაგრაფი.",
+    keywords: ["სპეციალისტი","ხარ","კომპანია","მაუწყებელი","ტონი","ფორმატი","ქართულ","ვაკანს","რედაქტ","გამოცდ","პარაგ","სარგო","მოთხოვ"],
+    minWords: 15
+  },
+  {
+    scenario: "🔍 ანალიზის სიტუაცია",
+    task: "გსურთ AI-მ გაანალიზოს თქვენი გადაცემების სამი თვის მაყურებლების სტატისტიკა. დაწერეთ კარგი prompt ამ ამოცანისთვის.",
+    hint: "💡 დაადგინეთ: ვინ ხართ, რა ინფოა, რა გამოხვიდეს, რა ფორმატი გინდათ",
+    ideal: "ხარ მედია-ანალიტიკოსი. ეს ჩვენი გადაცემების Q3 მაყურებლების სტატისტიკაა: [ჩასვამ ინფოს]. Step by step გაანალიზე: 1) ყველაზე პოპულარული 3 გადაცემა, 2) ზრდის ან კლების ტენდენცია, 3) 2 კონკრეტული რეკომენდაცია Q4-ისთვის. ბიულეტებით, ქართულად.",
+    keywords: ["ანალიტ","სტატისტ","ტენდენც","რეკომენდ","ბიულ","step","ნაბიჯ","გამოც","Q4","Q3","ქართულ","ფორმ","კონკრ"],
+    minWords: 12
+  },
+  {
+    scenario: "✍️ ტექსტის წერა",
+    task: "გჭირდებათ ელ-ფოსტა პარტნიორი ორგანიზაციისთვის, სადაც ახალი ერთობლივი პროექტის განხილვის შეხვედრას სთავაზობთ. დაწერეთ prompt.",
+    hint: "💡 AI-ს უთხარით: ვინ ხართ, ვის სწერთ, რა ტონი, რა სიგრძე",
+    ideal: "შენ ხარ კომუნიკაციების მენეჯერი საზოგადოებრივ მაუწყებელში. დამიწერე ფორმალური ელ-ფოსტა პარტნიორი NGO-სთვის. ვთხოვ 2025 წლის ერთობლივი სამაუწყებლო პროექტის განხილვის ონლაინ შეხვედრას. ტონი: ფორმალური, მაგრამ მეგობრული. 4-5 წინადადება. ქართულად.",
+    keywords: ["ხარ","კომუნიკ","მენეჯ","ფორმ","ტონ","წინადად","ქართულ","პარტნ","NGO","შეხვ","ონლ","სიგრ","მეგობ"],
+    minWords: 12
+  },
+  {
+    scenario: "📄 დოკუმენტის ანალიზი",
+    task: "გაქვთ 20-გვერდიანი ყოველწლიური ანგარიში. გინდათ Claude-ს სთხოვოთ მთავარი პუნქტების ამოღება. დაწერეთ prompt.",
+    hint: "💡 კარგი prompt: ჩასვით ტექსტი [ან მიანიშნეთ] + კონკრეტული მოთხოვნა + ფორმატი",
+    ideal: "[ანგარიშის ტექსტი]. ეს ჩვენი 2024 წლის ყოველწლიური ანგარიშია. ამოიღე: 1) 5 ყველაზე მნიშვნელოვანი მიღწევა, 2) 3 ძირითადი გამოწვევა, 3) მომავლის 3 პრიორიტეტი. ბიულეტებით, მოკლედ, ქართულად. სულ 1 გვერდი.",
+    keywords: ["ანგარ","ამოიღ","პუნქტ","მიღწ","გამოწვ","ბიულ","ქართ","პრიორ","მოკლ","გვ","მნიშვ","სულ","ფორმ"],
+    minWords: 10
+  },
+  {
+    scenario: "🧠 კრეატიული ამოცანა",
+    task: "გსურთ AI-მ შემოგთავაზოთ 5 ორიგინალური იდეა ახალი სატელევიზიო გადაცემისთვის. Prompt დაწერეთ ისე, რომ იდეები ახალი და საინტერესო იყოს.",
+    hint: "💡 მიეცით კონტექსტი: არხი, სამიზნე აუდიტორია, ჟანრი, რა ახალი კუთხე გინდათ",
+    ideal: "შენ ხარ კრეატიული პროდიუსერი. ჩვენ ვართ საქართველოს საზოგადოებრივი მაუწყებელი. გვჭირდება 5 ორიგინალური იდეა ახალი კვირაში ერთხელ გადაცემისთვის. სამიზნე: 35-60 წლის ქართველი მაყურებელი. ჟანრი: დოკუმენტური ან ანალიტიკური. ყოველი იდეა: სახელი + 2 წინადადებით მოკლე აღწერა + რატომ იქნება საინტერესო.",
+    keywords: ["პროდ","კრეატ","ხარ","ორიგ","სამიზნ","მაყ","ჟანრ","ქართვ","სახელ","აღწ","წინადად","ახალ","საინტ"],
+    minWords: 15
+  }
+];
+
+let currentChallenge = 0;
+let totalScore = 0;
+let scores = [];
+let submitted = false;
+
+function initGame() {
+  currentChallenge = 0;
+  totalScore = 0;
+  scores = [];
+  submitted = false;
+  buildProgress();
+  loadChallenge();
+  document.getElementById('game-result').classList.remove('show');
+  document.getElementById('game-active').style.display = 'block';
+}
+
+function buildProgress() {
+  const prog = document.getElementById('game-progress');
+  prog.innerHTML = '';
+  challenges.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'gp-dot' + (i === 0 ? ' current' : '');
+    d.id = 'gp-' + i;
+    prog.appendChild(d);
+  });
+}
+
+function loadChallenge() {
+  const c = challenges[currentChallenge];
+  document.getElementById('challenge-scenario').textContent = c.scenario;
+  document.getElementById('challenge-task').textContent = c.task;
+  document.getElementById('challenge-hint').textContent = c.hint;
+  document.getElementById('game-input').value = '';
+  document.getElementById('feedback-box').classList.remove('show','good','ok','bad');
+  document.getElementById('submit-btn').disabled = false;
+  document.getElementById('next-btn').classList.remove('show');
+  document.getElementById('current-q').textContent = currentChallenge + 1;
+  submitted = false;
+}
+
+function scorePrompt(text, challenge) {
+  let score = 0;
+  const words = text.trim().split(/\s+/);
+  const lower = text.toLowerCase();
+
+  if (words.length >= challenge.minWords) score += 2;
+  else if (words.length >= Math.floor(challenge.minWords * 0.6)) score += 1;
+
+  let keyHits = 0;
+  challenge.keywords.forEach(kw => { if (lower.includes(kw.toLowerCase())) keyHits++; });
+  score += Math.min(5, Math.floor(keyHits / 2));
+
+  const hasRole = /(ხარ|შენ|სპეციალ|ანალიტ|მენეჯ|პროდ|ექსპ)/i.test(text);
+  const hasFormat = /(ფორმ|ბიულ|ქართ|გვ\.|პარაგ|სიგრ|მოკლ|ნაბიჯ)/i.test(text);
+  const hasContext = /(კომპ|ჩვენ|მაუწყ|Q[34]|2024|2025|ანგარ|სამ)/i.test(text);
+  if (hasRole) score += 1;
+  if (hasFormat) score += 1;
+  if (hasContext) score += 1;
+
+  return Math.min(10, score);
+}
+
+function submitPrompt() {
+  if (submitted) return;
+  const text = document.getElementById('game-input').value.trim();
+  if (!text || text.length < 10) {
+    document.getElementById('game-input').style.borderColor = 'var(--red)';
+    setTimeout(() => document.getElementById('game-input').style.borderColor = '', 1000);
+    return;
+  }
+  submitted = true;
+  document.getElementById('submit-btn').disabled = true;
+
+  const c = challenges[currentChallenge];
+  const score = scorePrompt(text, c);
+  scores.push(score);
+  totalScore += score;
+  document.getElementById('total-score').textContent = totalScore;
+
+  const fb = document.getElementById('feedback-box');
+  fb.classList.remove('good','ok','bad');
+
+  let cls, emoji, verdict, detail;
+  if (score >= 8) {
+    cls = 'good'; emoji = '🌟'; verdict = 'შესანიშნავია! ეს ნამდვილად კარგი prompt-ია!';
+    detail = 'კარგად მიუთითეთ: როლი, კონტექსტი, ამოცანა და ფორმატი. AI-ი ასეთ prompt-ზე ბევრად უკეთეს პასუხს გაძლევთ. ❤️';
+  } else if (score >= 5) {
+    cls = 'ok'; emoji = '👍'; verdict = 'კარგია, მაგრამ გასაუმჯობესებელია!';
+    detail = 'Prompt-ს ახლა გარკვეული სტრუქტურა აქვს. დაამატეთ: კონკრეტული ფორმატი (ბიულეტები, სიგრძე), AI-ის როლი ("შენ ხარ...") და კონტექსტი (ვინ ხართ, სად).';
+  } else {
+    cls = 'bad'; emoji = '💪'; verdict = 'ჯერ კიდევ სასწავლი გვაქვს!';
+    detail = 'Prompt ძალიან მოკლე ან ბუნდოვანია. AI-ი ვერ გაიგებს, რა გინდათ. სცადეთ: "შენ ხარ [სპეციალობა]. [კონტექსტი]. [ამოცანა]. [ფორმატი, ქართულად]."';
+  }
+
+  document.getElementById('fb-score').textContent = emoji + ' ' + score + '/10 ქულა';
+  document.getElementById('fb-verdict').textContent = verdict;
+  document.getElementById('fb-detail').textContent = detail;
+  document.getElementById('fb-ideal').innerHTML = '<strong>✅ ნიმუში: ასე შეიძლება ეწერა:</strong>' + c.ideal;
+
+  fb.classList.add('show', cls);
+  document.getElementById('gp-' + currentChallenge).classList.remove('current');
+  document.getElementById('gp-' + currentChallenge).classList.add('done');
+
+  if (currentChallenge < challenges.length - 1) {
+    document.getElementById('next-btn').classList.add('show');
+    if (currentChallenge + 1 < challenges.length) {
+      document.getElementById('gp-' + (currentChallenge + 1)).classList.add('current');
+    }
+  } else {
+    document.getElementById('next-btn').classList.remove('show');
+    setTimeout(showResult, 1500);
+  }
+}
+
+function nextChallenge() {
+  currentChallenge++;
+  loadChallenge();
+}
+
+function showResult() {
+  document.getElementById('game-active').style.display = 'none';
+  const result = document.getElementById('game-result');
+  result.classList.add('show');
+  const avg = totalScore / challenges.length;
+  let emoji, title, desc;
+  if (avg >= 7.5) {
+    emoji = '🏆'; title = 'Prompt-ის ოსტატი!';
+    desc = 'შესანიშნავი! თქვენ ბრწყინვალედ ახდენთ prompt-ის ჩამოყალიბებას. AI-ი თქვენთვის ნამდვილი ასისტენტი გახდება!';
+  } else if (avg >= 5) {
+    emoji = '⭐'; title = 'კარგი პროგრესი!';
+    desc = 'ლამაზი! კიდევ ცოტა ვარჯიში და Prompt-ის ხელოვნებაში ოსტატი გახდებით. კარგი prompt = ბევრად უკეთესი AI პასუხი!';
+  } else {
+    emoji = '💪'; title = 'სწავლა გრძელდება!';
+    desc = 'შეშინდეთ! Prompt-ის ჩამოყალიბება ვარჯიშს საჭიროებს. გახსოვდეთ ფორმულა: [როლი] + [კონტექსტი] + [ამოცანა] + [ფორმატი]. სცადეთ ხელახლა!';
+  }
+  document.getElementById('result-emoji').textContent = emoji;
+  document.getElementById('result-title').textContent = title;
+  document.getElementById('result-desc').textContent = desc + ' (სულ: ' + totalScore + '/' + (challenges.length * 10) + ' ქულა)';
+}
+
+function restartGame() {
+  document.getElementById('game-result').classList.remove('show');
+  document.getElementById('game-active').style.display = 'block';
+  initGame();
+}
+
+// ─── INIT ───
+initGame();
+animateBars();
+</script>
+</body>
+</html>
